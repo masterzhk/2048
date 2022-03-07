@@ -1,0 +1,21 @@
+div.gamezone {
+    height: 20rem;
+    width: 20rem;
+    background-color: aqua;
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    border-radius: 1rem;
+}
+
+div.digit {
+    overflow: hidden;
+    background-color: coral;
+    text-align: center;
+    margin: 0.5rem;
+    border-radius: 0.5rem;
+    width: 4rem;
+    height: 1rem;
+    padding: 1.5rem 0;
+}
