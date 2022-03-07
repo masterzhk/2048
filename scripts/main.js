@@ -1,13 +1,17 @@
-let mousedownEvent = null;
 let digits = [];
 let digitDivs = [];
 init2048();
 
 function init2048() {
     let div2048 = document.createElement("div");
-    div2048.className = "gamezone";
+    div2048.className = "gamezone gamezone-2048";
     div2048.id = "gamezone-2048"
     document.body.appendChild(div2048);
+
+    let divControl = document.createElement("div");
+    divControl.className = "gamezone gamezone-control";
+    divControl.id = "gamezone-control"
+    document.body.appendChild(divControl);
 
     div2048.addEventListener("mousedown", onMouseDown);
     div2048.addEventListener("mouseup", onMouseUp);
@@ -15,16 +19,16 @@ function init2048() {
 
     for (let i = 1; i <= 16; i++) {
         let divDigit = document.createElement("div");
-        divDigit.className = "digit";
-        divDigit.id = `digit-${i}`;
         div2048.appendChild(divDigit);
 
         digitDivs.push(divDigit);
         digits.push(0);
     }
 
-    updateDigit(digits);
+    showDigit(digits);
 }
+
+let mousedownEvent = null;
 
 function onMouseLeave(e) {
     mousedownEvent = null;
@@ -49,8 +53,10 @@ function onMouseUp(e) {
             if (absXDiff > e.currentTarget.clientWidth / 3) {
                 if (xDiff > 0) {
                     console.log("右划");
+                    toRight(values);
                 } else {
                     console.log("左划");
+                    toLeft(values);
                 }
             }
             else {
@@ -61,8 +67,10 @@ function onMouseUp(e) {
             if (absYDiff > e.currentTarget.clientHeight / 3) {
                 if (yDiff > 0) {
                     console.log("下划");
+                    toDwon(values);
                 } else {
                     console.log("上划");
+                    toUp(values);
                 }
             }
             else {
@@ -72,17 +80,41 @@ function onMouseUp(e) {
     }
 }
 
-function updateDigit(values) {
+function showDigit(values) {
     for (let i = 0; i < 16; ++i) {
-        if (values[i] > 0) {
-            digitDivs[i].textContent = values[i];
-        }
-        else {
-            digitDivs[i].textContent = "";
-        }
+        digitDivs[i].textContent = values[i] > 0 ? values[i] : "";
+        digitDivs[i].className = `digit digit-${values[i]}`;
     }
 }
 
-function toLeft(values) { 
-    
+function addRandom(values) {
+    let pos0 = [];
+    for (let i = 0; i < 16; ++i) {
+        if (values[i] == 0) {
+            pos0.push(i);
+        }
+    }
+    if (pos0.length > 0) {
+        values[pos0[random(pos0.length)]] = 2;
+    }
+}
+
+function random(max = 1) {
+    return Math.floor(Math.random() * max);
+}
+
+function toLeft(values) {
+
+}
+
+function toRight(values) {
+
+}
+
+function toUp(values) {
+
+}
+
+function toDwon(values) {
+
 }
