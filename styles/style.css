@@ -1,80 +1,54 @@
-div.gamezone {
-    height: 80vmin;
-    width: 80vmin;
-    background-color: rgb(243, 225, 142);
-    display: -ms-grid;
-    -ms-grid-columns: 1fr 1fr 1fr 1fr;
+html body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: beige;
+}
+
+div#game-zone {
+    border: 2px solid rgb(199, 199, 199);
+    border-radius: 2%;
+    width: 100%;
+    max-width: 600px;
+}
+
+div#game-zone-2048 {
     display: grid;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 2%;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    border-radius: 1rem;
-    border: 4px solid rgb(219, 143, 2);
+    background-color: rgb(240, 240, 100);
 }
 
-div.gamezone-control {
-    height: 20vmin;
-    width: 80vmin;
+div.game-zone-2048-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(185, 87, 22);
+    aspect-ratio: 1 / 1;
+    margin: 5px;
+    border-radius: 5%;
 }
 
-div.digit {
-    background-color: #FFFFFF;
-    text-align: center;
-    margin: 0.5rem;
-    border-radius: 0.5rem;
-    color: rgb(255, 255, 255);
+div.game-zone-2048-item-text {
+    color: cornsilk;
+}
+
+div#game-zone-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+    padding: 5px;
+}
+
+div#game-zone-control>button {
+    width: 100%;
     height: 2rem;
-    padding: 1rem 0;
-    line-height: 10vmin;
-    font-size: 10vmin;
-}
-
-div.digit-2 {
-    background-color: #EC4EC4;
-}
-
-div.digit-4 {
-    background-color: #D89D89;
-}
-
-div.digit-8 {
-    background-color: #C4EC4E;
-}
-
-div.digit-16 {
-    background-color: #B13B13;
-}
-
-div.digit-32 {
-    background-color: #9D89D8;
-}
-
-div.digit-64 {
-    background-color: #89D89D;
-}
-
-div.digit-128 {
-    background-color: #762762;
-}
-
-div.digit-256 {
-    background-color: #627627;
-}
-
-div.digit-512 {
-    background-color: #4EC4EC;
-}
-
-div.digit-1024 {
-    background-color: #3B13B1;
-}
-
-div.digit-2048 {
-    background-color: #276276;
-}
-
-div.digit-4096 {
-    background-color: #13B13B;
-}
-
-div.digit-8192 {
-    background-color: #000000;
+    background-color: rgb(240, 240, 100);
+    border-radius: 8px;
 }
