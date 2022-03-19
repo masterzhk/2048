@@ -1,6 +1,6 @@
 html body {
     margin: 0;
-    padding: 0;
+    padding: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -48,7 +48,7 @@ div#game-zone-control {
 
 div#game-zone-control>button {
     width: 100%;
-    height: 2rem;
     background-color: rgb(240, 240, 100);
     border-radius: 8px;
+    font-size: 1.5rem;
 }
