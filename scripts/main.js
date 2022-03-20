@@ -22,6 +22,8 @@ function init2048() {
         setDigit(index, parseInt(localStorage.getItem(`digits.${index}`)));
     }
 
+    document.addEventListener("keyup", onKeyup);
+
     gameZone2048.addEventListener("mousedown", onMouseDown);
     gameZone2048.addEventListener("mouseup", onMouseUp);
     gameZone2048.addEventListener("mouseleave", onMouseLeave);
@@ -77,7 +79,22 @@ function detectWinningOrLosing() {
         }, 0);
     }
     else if (digits.every(i => !isNaN(i))) {
-
+        for (let row = 0; row < 4; ++row) {
+            const base = row * 4;
+            for (let col = 0; col < 3; ++col) {
+                if (digits[base + col] === digits[base + col + 1]) {
+                    return;
+                }
+            }
+        }
+        for (let col = 0; col < 4; ++col) {
+            for (let row = 0; row < 3; ++row) {
+                if (digits[col + row * 4] === digits[col + (row + 1) * 4]) {
+                    return;
+                }
+            }
+        }
+        confirm("Oops！好像死局了...");
     }
 }
 
@@ -111,8 +128,31 @@ function setDigit(index, value) {
     localStorage.setItem(`digits.${index}`, digits[index]);
 }
 
-function onMouseLeave(e) {
-    mousedownEvent = null;
+function onKeyup(e) {
+    if (!e.shiftKey && !e.altKey && !e.ctrlKey) {
+        switch (e.key) {
+            case "a":
+            case "A":
+            case "ArrowLeft":
+                toLeft();
+                break;
+            case "d":
+            case "D":
+            case "ArrowRight":
+                toRight();
+                break;
+            case "w":
+            case "W":
+            case "ArrowUp":
+                toUp();
+                break;
+            case "s":
+            case "S":
+            case "ArrowDown":
+                toDwon();
+                break;
+        }
+    }
 }
 
 function onMouseDown(e) {
@@ -128,6 +168,10 @@ function onMouseUp(e) {
         detectMovement(e.clientX - mousedownEvent.clientX, e.clientY - mousedownEvent.clientY);
         mousedownEvent = null;
     }
+}
+
+function onMouseLeave(e) {
+    mousedownEvent = null;
 }
 
 function onTouchStart(e) {
@@ -224,7 +268,7 @@ function merge(indexBase, step) {
 function afterMerge() {
     setStep(++step);
     addNewDigit();
-    detectWinningOrLosing();
+    setTimeout(detectWinningOrLosing, 0);
 }
 
 function toLeft() {
