@@ -9,6 +9,7 @@ const gameZonePanelValueStep = document.querySelector("#game-zone-panel-value-st
 let winDigit = 0;
 
 let mousedownEvent = null;
+let touchStartEvent = null;
 
 init2048();
 
@@ -24,6 +25,9 @@ function init2048() {
     gameZone2048.addEventListener("mousedown", onMouseDown);
     gameZone2048.addEventListener("mouseup", onMouseUp);
     gameZone2048.addEventListener("mouseleave", onMouseLeave);
+
+    gameZone2048.addEventListener("touchstart", onTouchStart);
+    gameZone2048.addEventListener("touchend", onTouchEnd);
 
     window.addEventListener("resize", onWindowResize);
     onWindowResize();
@@ -112,36 +116,54 @@ function onMouseLeave(e) {
 }
 
 function onMouseDown(e) {
-    e.preventDefault();
-    mousedownEvent = e;
+    if (e.button === 0) {
+        e.preventDefault();
+        mousedownEvent = e;
+    }
 }
 
 function onMouseUp(e) {
-    if (mousedownEvent) {
+    if (mousedownEvent && e.button === 0) {
         e.preventDefault();
+        detectMovement(e.clientX - mousedownEvent.clientX, e.clientY - mousedownEvent.clientY);
+        mousedownEvent = null;
+    }
+}
 
-        let xDiff = e.clientX - mousedownEvent.clientX;
-        let yDiff = e.clientY - mousedownEvent.clientY;
+function onTouchStart(e) {
+    if (e.changedTouches.length === 1) {
+        e.preventDefault();
+        touchStartEvent = e;
+    }
+}
 
-        let absXDiff = Math.abs(xDiff);
-        let absYDiff = Math.abs(yDiff);
+function onTouchEnd(e) {
+    if (touchStartEvent && e.changedTouches.length === 1) {
+        e.preventDefault();
+        detectMovement(e.changedTouches[0].clientX - touchStartEvent.changedTouches[0].clientX, e.changedTouches[0].clientY - touchStartEvent.changedTouches[0].clientY);
+        touchStartEvent = null;
+    }
+}
 
-        if (absXDiff > absYDiff) {
-            if (absXDiff > e.currentTarget.clientWidth / 5) {
-                if (xDiff > 0) {
-                    toRight();
-                } else {
-                    toLeft();
-                }
+function detectMovement(xDiff, yDiff) {
+    let absXDiff = Math.abs(xDiff);
+    let absYDiff = Math.abs(yDiff);
+
+    if (absXDiff > absYDiff) {
+        if (absXDiff > gameZone2048.clientWidth / 5) {
+            if (xDiff > 0) {
+                toRight();
+            } else {
+                toLeft();
             }
         }
-        else {
-            if (absYDiff > e.currentTarget.clientHeight / 5) {
-                if (yDiff > 0) {
-                    toDwon();
-                } else {
-                    toUp();
-                }
+    }
+    else {
+        if (absYDiff > gameZone2048.clientHeight / 5) {
+            if (yDiff > 0) {
+                toDwon();
+            } else {
+                toUp();
             }
         }
     }
