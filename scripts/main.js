@@ -108,6 +108,7 @@ function doubleDigit(digit) {
 
 function setWinDigit(value) {
     winDigit = value;
+
     localStorage.setItem("winDigit", winDigit);
 }
 
@@ -214,7 +215,7 @@ function detectMovement(xDiff, yDiff) {
 }
 
 function onWindowResize() {
-    // 延时调整字体大小，不然会偶尔计算出错误的大小
+    // 延时调整字体大小，偶尔会计算出错误的大小，暂时不知道具体原因
     setTimeout(() => {
         const width = window.getComputedStyle(document.querySelector(".game-zone-2048-item")).width;
         const result = /^(.+?)([A-Za-z]*)$/.exec(width);
